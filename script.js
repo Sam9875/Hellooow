@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Are you sure?",
         "Really sure?",
         "Think again 😭",
-        "preety lady..please!",
+        "pretty lady..please!",
         "Bruhhh..please!",
         "You're breaking me 💔",
         "Please please..? 🥺",
