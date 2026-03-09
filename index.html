@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Will you be my Valentine?</title>
+    <meta name="description" content="A cute interactive Valentine's Day proposal">
+    <link rel="stylesheet" href="style.css">
+    <!-- Using a modern round font for a cuter vibe -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Background for floating hearts animation -->
+    <div class="hearts-background" id="hearts-container"></div>
+
+    <div class="container" id="main-container">
+        <!-- Tagline Poem -->
+        <p class="tagline">Roses are red, violets are blue, I am here to impress you!! 💕</p>
+
+        <!-- Our Photo -->
+        <div class="gif-container">
+            <img id="cute-gif" src="our-photo.jpg" alt="Us together">
+        </div>
+
+        <!-- Main Question Text -->
+        <h1 id="main-text">Are you stressed ..? 😊</h1>
+
+        <!-- Interaction Buttons -->
+        <div class="buttons" id="buttons-container">
+            <button class="btn yes-btn" id="yes-btn">YES ❤️</button>
+            <button class="btn no-btn" id="no-btn">NO 💔</button>
+        </div>
+    </div>
+
+    <!-- External confetti library for celebration -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

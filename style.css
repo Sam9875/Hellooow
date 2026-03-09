@@ -1,0 +1,213 @@
+:root {
+    --primary-color: #e6193c;
+    --bg-gradient-start: #ffccd5;
+    --bg-gradient-end: #c9184a;
+    --text-color: #a4133c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Prevent page scroll when moving the NO button on mobile devices */
+    overflow: hidden;
+    touch-action: none;
+}
+
+/* Floating Hearts Background Container */
+.hearts-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart-float {
+    position: absolute;
+    bottom: -10vh;
+    font-size: 1.5rem;
+    animation: floatUp linear infinite;
+    opacity: 0.6;
+    user-select: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* UI Container Setup */
+.container {
+    text-align: center;
+    z-index: 10;
+    padding: 2rem;
+    max-width: 100%;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.gif-container img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 4px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 15px 35px rgba(255, 75, 114, 0.25);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gif-container img:hover {
+    transform: scale(1.05);
+    /* Slight dynamic hover effect */
+}
+
+h1 {
+    color: var(--text-color);
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.6);
+    line-height: 1.2;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Poem tagline above photo */
+.tagline {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 600;
+    background: rgba(164, 19, 60, 0.35);
+    backdrop-filter: blur(6px);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.buttons {
+    display: flex;
+    gap: 1.2rem;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    min-height: 60px;
+}
+
+.btn {
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.yes-btn {
+    background: linear-gradient(45deg, #ff4b72, #ff758c);
+    color: white;
+    z-index: 2;
+}
+
+.yes-btn:hover,
+.yes-btn:active {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 20px rgba(255, 75, 114, 0.4);
+}
+
+.no-btn {
+    background: white;
+    color: var(--text-color);
+    transition: background 0.2s ease;
+}
+
+.no-btn:hover,
+.no-btn:active {
+    background: #ffe3e8;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.2rem;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .tagline {
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .gif-container img {
+        width: 250px;
+        height: 250px;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        min-height: 55px;
+    }
+
+    .btn {
+        font-size: 1.1rem;
+        padding: 0.85rem 1.6rem;
+    }
+}
+
+@media (max-height: 700px) {
+    .container {
+        gap: 0.6rem;
+        padding: 0.8rem;
+    }
+
+    .gif-container img {
+        width: 200px;
+        height: 200px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+        min-height: 45px;
+    }
+
+    .tagline {
+        font-size: 0.85rem;
+    }
+}
