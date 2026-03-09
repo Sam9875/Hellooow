@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cuteGif = document.getElementById('cute-gif');
     const heartsContainer = document.getElementById('hearts-container');
 
-    // Array of funny messages to show when no button escapes
-    const noMessages = [
+    // Array of funny messages to show when YES button escapes
+    const yesMessages = [
         "Are you sure?",
         "Really sure?",
         "Think again 😭",
@@ -25,11 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const emojis = ['❤️', '💖', '💕', '💘', '💝'];
         heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = Math.random() * 3 + 5 + 's'; // 5 to 8 seconds float up rate
+        heart.style.animationDuration = Math.random() * 3 + 5 + 's';
         heart.style.fontSize = Math.random() * 1 + 1 + 'rem';
         heartsContainer.appendChild(heart);
 
-        // Cleanup DOM after animation completes
         setTimeout(() => {
             heart.remove();
         }, 8000);
@@ -38,27 +37,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Spawn hearts continuously
     const heartInterval = setInterval(createHeart, 600);
 
-    // --- Interaction Behavior ---
+    // --- YES Button Escape Behavior ---
 
     let escaped = false;
 
-    // Function to calculate random bounds and escape
-    const moveNoButton = () => {
-        // Update main text
-        mainText.innerText = noMessages[messageIndex];
-        messageIndex = (messageIndex + 1) % noMessages.length;
+    const moveYesButton = () => {
+        // Update main text with funny messages
+        mainText.innerText = yesMessages[messageIndex];
+        messageIndex = (messageIndex + 1) % yesMessages.length;
 
-
-
-        // Make it absolute positioned so it can fly around freely
+        // Make it fixed positioned so it can fly around freely
         if (!escaped) {
-            noBtn.style.position = 'fixed';
-            noBtn.style.zIndex = '100';
+            yesBtn.style.position = 'fixed';
+            yesBtn.style.zIndex = '100';
             escaped = true;
         }
 
-        const btnWidth = noBtn.offsetWidth;
-        const btnHeight = noBtn.offsetHeight;
+        const btnWidth = yesBtn.offsetWidth;
+        const btnHeight = yesBtn.offsetHeight;
 
         // Keep within visible screen bounds
         const safeMargin = 20;
@@ -68,56 +64,53 @@ document.addEventListener('DOMContentLoaded', () => {
         const randomX = Math.max(safeMargin, Math.floor(Math.random() * maxX));
         const randomY = Math.max(safeMargin, Math.floor(Math.random() * maxY));
 
-        noBtn.style.left = randomX + 'px';
-        noBtn.style.top = randomY + 'px';
-        noBtn.style.transition = 'left 0.4s ease-out, top 0.4s ease-out';
+        yesBtn.style.left = randomX + 'px';
+        yesBtn.style.top = randomY + 'px';
+        yesBtn.style.transition = 'left 0.4s ease-out, top 0.4s ease-out';
     };
 
-    // Proximity detection — button runs away as cursor APPROACHES it (desktop)
+    // Proximity detection — YES button runs away as cursor APPROACHES it (desktop)
     document.addEventListener('mousemove', (e) => {
-        const rect = noBtn.getBoundingClientRect();
+        const rect = yesBtn.getBoundingClientRect();
         const btnCenterX = rect.left + rect.width / 2;
         const btnCenterY = rect.top + rect.height / 2;
         const distance = Math.sqrt(
             Math.pow(e.clientX - btnCenterX, 2) + Math.pow(e.clientY - btnCenterY, 2)
         );
 
-        // If cursor is within 80px of the button center, flee!
         if (distance < 80) {
-            moveNoButton();
+            moveYesButton();
         }
     });
 
-    // Direct hover/touch/click — all trigger escape
-    noBtn.addEventListener('mouseover', moveNoButton);
-    noBtn.addEventListener('touchstart', (e) => {
+    // Direct hover/touch/click — all trigger escape for YES
+    yesBtn.addEventListener('mouseover', moveYesButton);
+    yesBtn.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        moveNoButton();
+        moveYesButton();
     });
-    noBtn.addEventListener('click', (e) => {
+    yesBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        moveNoButton();
+        moveYesButton();
     });
 
-    // --- Celebration Behavior ---
+    // --- NO Button Celebration Behavior ---
 
-    yesBtn.addEventListener('click', () => {
+    noBtn.addEventListener('click', () => {
         // Stop default floating hearts
         clearInterval(heartInterval);
 
         // Final text update
         mainText.innerText = "Lets gooo..!!!! I love you so much ... ❤️";
 
+        // Hide the YES button
+        yesBtn.style.display = 'none';
 
+        // Expand and center NO button
+        noBtn.style.transform = 'scale(1.2)';
+        noBtn.style.pointerEvents = 'none';
 
-        // Fade out/remove the no button completely
-        noBtn.style.display = 'none';
-
-        // Expand and center YES button
-        yesBtn.style.transform = 'scale(1.2)';
-        yesBtn.style.pointerEvents = 'none';
-
-        // Confetti burst animation using canvas-confetti
+        // Confetti burst animation
         const duration = 3000;
         const animationEnd = Date.now() + duration;
 
@@ -143,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         frame();
 
-        // Spawn a burst of background hearts immediately
+        // Spawn a burst of background hearts
         for (let i = 0; i < 40; i++) {
             setTimeout(createHeart, i * 30);
         }
